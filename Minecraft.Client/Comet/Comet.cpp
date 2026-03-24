@@ -12,10 +12,15 @@ vector<Module*> modules = {
 bool Comet::handleCommand(std::wstring message)
 {
     auto mc = Minecraft::GetInstance();
-    mc->gui->addMessage(L"Comet: Toggling Modules", 0, false);
     for (const auto &module : modules)
     {
+        auto cmd = L"/" + module->name();
+        if (message.find(cmd) != 0) { continue; }
+
         module->toggle();
+        wstring status = module->isEnabled() ? L"enabled" : L"disabled";
+        mc->gui->addMessage(L"Comet: " + module->name() + L" " + status, 0, false);
+        return true;
     }
 
     return false;

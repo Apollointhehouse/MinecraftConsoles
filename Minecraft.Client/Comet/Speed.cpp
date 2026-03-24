@@ -5,12 +5,6 @@
 #include "../MultiPlayerLocalPlayer.h"
 #include "../Input.h"
 
-void Speed::onEnable()
-{
-    auto mc = Minecraft::GetInstance();
-    mc->gui->addMessage(L"Comet: Speed Enabled!", 0, false);
-}
-
 void Speed::onPlayerTick()
 {
     auto mc = Minecraft::GetInstance();

@@ -9,6 +9,7 @@ class Module
 
 public:
     virtual ~Module() = default;
+    virtual wstring name() = 0;
 
     void toggle();
     bool isEnabled() const
