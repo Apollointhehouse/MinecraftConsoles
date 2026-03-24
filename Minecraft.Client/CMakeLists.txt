@@ -5,6 +5,7 @@ include("${CMAKE_CURRENT_LIST_DIR}/cmake/sources/PS3.cmake")
 include("${CMAKE_CURRENT_LIST_DIR}/cmake/sources/PSVita.cmake")
 include("${CMAKE_CURRENT_LIST_DIR}/cmake/sources/Windows.cmake")
 include("${CMAKE_CURRENT_LIST_DIR}/cmake/sources/Xbox360.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/cmake/sources/Comet.cmake")
 
 include("${CMAKE_SOURCE_DIR}/cmake/CommonSources.cmake")
 
@@ -21,6 +22,7 @@ set(MINECRAFT_CLIENT_SOURCES
   $<$<STREQUAL:${PLATFORM_NAME},Windows64>:${MINECRAFT_CLIENT_WINDOWS}>
   $<$<STREQUAL:${PLATFORM_NAME},Xbox>:${MINECRAFT_CLIENT_XBOX360}>
   ${SOURCES_COMMON}
+  ${COMET_CLIENT}
 )
 
 add_executable(Minecraft.Client ${MINECRAFT_CLIENT_SOURCES})

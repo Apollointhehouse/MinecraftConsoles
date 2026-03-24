@@ -14,6 +14,7 @@
 #include "..\Minecraft.World\net.minecraft.world.entity.item.h"
 #include "Input.h"
 #include "LevelRenderer.h"
+#include "Comet/Comet.h"
 
 // 4J added for testing
 #ifdef STRESS_TEST_MOVE
@@ -89,6 +90,8 @@ void MultiplayerLocalPlayer::tick()
 		//app.Debugprintf("Cannot move to position (%f, %f, %f), falling back to (%f, %f, %f)\n", x, y, z, tempX, y, tempZ);
 		this->setPos(tempX, y, tempZ);
 	}
+
+	Comet::onPlayerTick();
 }
 
 void MultiplayerLocalPlayer::sendPosition()
