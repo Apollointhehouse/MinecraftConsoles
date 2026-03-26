@@ -2,20 +2,23 @@
 
 class Module
 {
+    wstring name;
     bool enabled = false;
 
     virtual void onEnable();
     virtual void onDisable();
 
-public:
-    virtual ~Module() = default;
-    virtual wstring name() = 0;
+  protected:
+    static Minecraft *mc;
 
+    Module(wstring name);
+
+  public:
+    virtual ~Module() = default;
+    
+    wstring getName();
     void toggle();
-    bool isEnabled() const
-    {
-        return enabled;
-    }
+    bool isEnabled();
 
     virtual void onPlayerTick();
 };

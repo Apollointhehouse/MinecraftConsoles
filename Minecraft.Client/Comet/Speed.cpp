@@ -1,13 +1,13 @@
 #include "Speed.h"
 #include "../Minecraft.h"
 #include "../../Minecraft.World/Vec3.h"
-#include "cmath"
 #include "../MultiPlayerLocalPlayer.h"
 #include "../Input.h"
 
+Speed::Speed() : Module(L"Speed") {}
+
 void Speed::onPlayerTick()
 {
-    auto mc = Minecraft::GetInstance();
     auto player = mc->player;
     Input *input = player->input;
 

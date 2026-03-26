@@ -2,10 +2,11 @@
 
 #include "Module.h"
 
-class Speed : public Module
+class Step : public Module
 {
 public:
-    Speed();
+    Step();
 
     void onPlayerTick() override;
+    void onDisable() override;
 };

@@ -1,15 +1,11 @@
+cmake_minimum_required(VERSION 3.12)
+
 set(BASE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Comet/")
 
-set(COMET_BASE
-  "${BASE_DIR}/Comet.h"
-  "${BASE_DIR}/Comet.cpp"
-  "${BASE_DIR}/Module.h"
-  "${BASE_DIR}/Module.cpp"
-  "${BASE_DIR}/Speed.h"
-  "${BASE_DIR}/Speed.cpp"
-)
-source_group("COMET_FILES" FILES ${COMET_BASE})
+file(GLOB_RECURSE FOUND_FILES CONFIGURE_DEPENDS "${BASE_DIR}/*.h" "${BASE_DIR}/*.cpp")
+
+source_group("COMET_FILES" FILES ${FOUND_FILES})
 
 set(COMET_CLIENT
-${COMET_BASE}
+${FOUND_FILES}
 )
