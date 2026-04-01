@@ -67,6 +67,7 @@
 #include "..\Minecraft.World\ChestTileEntity.h"
 #include "TextureManager.h"
 #include "Comet/Comet.h"
+#include "Comet/Dispatch/Dispatcher.h"
 #ifdef _XBOX
 #include "Xbox\Network\NetworkPlayerXbox.h"
 #endif
@@ -4855,7 +4856,16 @@ bool Minecraft::renderDebug()
 
 bool Minecraft::handleClientSideCommand(const wstring& chatMessage)
 {
-    return Comet::handleCommand(chatMessage);
+    MessageSentEvent event;
+    event.message = chatMessage;
+
+    Dispatcher::onEvent<MessageSentEvent, MessageSentHandler>(event);
+	if (event.isCanceled())
+	{
+        return false;
+	}
+
+    return true;
 }
 
 int Minecraft::maxSupportedTextureSize()

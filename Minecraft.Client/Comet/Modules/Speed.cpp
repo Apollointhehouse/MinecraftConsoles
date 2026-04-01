@@ -1,14 +1,13 @@
 #include "Speed.h"
-#include "../Minecraft.h"
-#include "../../Minecraft.World/Vec3.h"
-#include "../MultiPlayerLocalPlayer.h"
-#include "../Input.h"
+#include "../../../Minecraft.World/Vec3.h"
+#include "../../MultiPlayerLocalPlayer.h"
+#include "../../Input.h"
 
 Speed::Speed() : Module(L"Speed") {}
 
-void Speed::onPlayerTick()
+void Speed::onEvent(shared_ptr<PlayerTickEvent> event)
 {
-    auto player = mc->player;
+    auto player = event->player;
     Input *input = player->input;
 
     auto isMovingKey = input->ya != 0.0F || input->xa != 0.0F;

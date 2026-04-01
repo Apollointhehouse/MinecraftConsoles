@@ -15,6 +15,8 @@
 #include "Input.h"
 #include "LevelRenderer.h"
 #include "Comet/Comet.h"
+#include "Comet/Dispatch/Dispatcher.h"
+#include "Comet/Dispatch/Events/PlayerTickEvent.h"
 
 // 4J added for testing
 #ifdef STRESS_TEST_MOVE
@@ -91,7 +93,10 @@ void MultiplayerLocalPlayer::tick()
 		this->setPos(tempX, y, tempZ);
 	}
 
-	Comet::onPlayerTick();
+	PlayerTickEvent event;
+    event.player = this;
+
+	Dispatcher::onEvent<PlayerTickEvent, PlayerTickHandler>(event);
 }
 
 void MultiplayerLocalPlayer::sendPosition()

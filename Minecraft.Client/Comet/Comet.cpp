@@ -1,43 +1,50 @@
 #include "Comet.h"
 
-#include "Module.h"
-#include "Speed.h"
-#include "Step.h"
+#include "Modules/Module.h"
+#include "Modules/Speed.h"
+#include "Modules/Step.h"
+#include "Modules/ModuleManager.h"
+#include "Dispatch/Handlers/EventHandler.h"
 #include "../Gui.h"
 #include "../Minecraft.h"
 #include "../../Minecraft.World/StringHelpers.h"
 
-vector<Module*> modules = {
-    new Speed(), new Step()
-};
+Comet::Comet()
+{
+    auto manager = ModuleManager::instance();
+}
 
-bool Comet::handleCommand(std::wstring message)
+void Comet::onEvent(shared_ptr<MessageSentEvent> event)
 {
     auto mc = Minecraft::GetInstance();
-    for (const auto &module : modules)
+    auto message = event->message;
+    message = toLower(message);
+
+    if (message.size() == 0) return;
+
+    if (message[0] != L'/') return;
+
+    // extract command
+    std::wstring cmd = trimString(message.substr(1));
+
+    Module *module = ModuleManager::instance().getModuleByName(cmd);
+    if (module != nullptr)
     {
-        auto cmd = L"/" + module->getName();
-        cmd = toLower(cmd);
-
-        message = toLower(message);
-        if (message.find(cmd) != 0) { continue; }
-
         module->toggle();
         wstring status = module->isEnabled() ? L"enabled" : L"disabled";
         mc->gui->addMessage(L"Comet: " + module->getName() + L" " + status, 0, false);
-        return true;
+        event->cancel();
     }
-
-    return false;
 }
 
-void Comet::onPlayerTick()
+void Comet::onEvent(shared_ptr<PlayerTickEvent> event)
 {
-    for (const auto& module : modules)
-    {
-        if (module->isEnabled())
-        {
-            module->onPlayerTick();
-        }
-    }
+
+    // for (const auto& module : modules)
+    // {
+    //     if (module->isEnabled())
+    //     {
+    //         module->onPlayerTick();
+    //     }
+    // }
 }

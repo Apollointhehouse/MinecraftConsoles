@@ -1,6 +1,9 @@
 #pragma once
 
-class Module
+#include "../Dispatch/Handlers/EventHandler.h"
+#include "../Dispatch/Dispatcher.h"
+
+class Module : public virtual EventHandler
 {
     wstring name;
     bool enabled = false;
@@ -15,10 +18,8 @@ class Module
 
   public:
     virtual ~Module() = default;
-    
+
     wstring getName();
     void toggle();
     bool isEnabled();
-
-    virtual void onPlayerTick();
 };

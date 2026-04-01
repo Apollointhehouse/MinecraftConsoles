@@ -7,6 +7,6 @@ class Step : public Module
 public:
     Step();
 
-    void onPlayerTick() override;
+    void onEnable() override;
     void onDisable() override;
 };

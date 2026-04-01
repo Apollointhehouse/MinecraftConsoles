@@ -1,10 +1,19 @@
 #pragma once
 
-#include <string>
+#include "Dispatch/Events/MessageSentEvent.h"
+#include "Dispatch/Handlers/PlayerTickHandler.h"
+#include "Dispatch/Events/PlayerTickEvent.h"
+#include "Dispatch/Handlers/MessageSentHandler.h"
 
-class Comet
+#include <memory>
+
+using std::shared_ptr;
+
+class Comet : public virtual PlayerTickHandler, public virtual MessageSentHandler
 {
 public:
-    static bool handleCommand(std::wstring message);
-    static void onPlayerTick();
+    Comet();
+    virtual ~Comet() = default;
+    void onEvent(std::shared_ptr<MessageSentEvent> event) override;
+    void onEvent(std::shared_ptr<PlayerTickEvent> event) override;
 };
